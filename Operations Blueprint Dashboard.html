@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Operations Blueprint — $25M Staffing Firm</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.5; }
+  h1 { font-size: 24px; margin-bottom: 4px; }
+  h2 { font-size: 17px; margin-top: 36px; border-bottom: 2px solid #1D9E75; padding-bottom: 6px; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 24px; }
+  .question-box { background: #f4f4f0; border-left: 4px solid #D85A30; padding: 14px 18px; font-size: 15px; font-weight: 600; margin: 16px 0; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 14px; background: #fff; }
+  .card h3 { margin: 0 0 6px; font-size: 14px; }
+  .card p { margin: 0; font-size: 12.5px; color: #555; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+  th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; }
+  th { background: #f4f4f0; }
+  .bar-row { display: flex; align-items: center; margin: 6px 0; font-size: 12.5px; }
+  .bar-label { width: 170px; flex-shrink: 0; }
+  .bar-track { flex: 1; background: #eee; border-radius: 4px; height: 16px; position: relative; margin: 0 8px; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-current { background: #D85A30; }
+  .bar-target { background: #1D9E75; }
+  .bar-val { width: 36px; text-align: right; flex-shrink: 0; }
+  .legend { font-size: 12px; color: #666; margin-bottom: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; margin-right: 16px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .orgchart { text-align: center; margin: 20px 0; }
+  .orgnode { display: inline-block; background: #f4f4f0; border-radius: 6px; padding: 8px 16px; font-size: 13px; font-weight: 600; margin: 4px; }
+  .orgrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 8px; }
+  .orgleaf { border: 1px solid #ddd; border-radius: 6px; padding: 6px 12px; font-size: 11.5px; text-align: center; width: 150px; }
+  .orgleaf small { color: #888; display: block; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .two-col ul { font-size: 13px; padding-left: 18px; margin: 6px 0; }
+  .catbar-row { display: flex; align-items: center; margin: 4px 0; font-size: 12px; }
+  .catbar-label { width: 160px; flex-shrink: 0; }
+  .catbar-track { flex: 1; background: #eee; border-radius: 4px; height: 14px; position: relative; margin: 0 8px; }
+  .catbar-fill { height: 100%; border-radius: 4px; background: #888; }
+  .catbar-val { width: 30px; text-align: right; flex-shrink: 0; }
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .metric { background: #f4f4f0; border-radius: 8px; padding: 12px; }
+  .metric .label { font-size: 12px; color: #666; }
+  .metric .value { font-size: 22px; font-weight: 700; }
+  .note-box { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px 14px; font-size: 12.5px; color: #444; line-height: 1.6; }
+  .callout { background: #fdf3ec; border-left: 4px solid #D85A30; border-radius: 6px; padding: 16px 18px; font-size: 14px; color: #333; line-height: 1.65; margin: 16px 0; }
+  .callout strong { display: block; margin-bottom: 6px; font-size: 13px; color: #993c1d; text-transform: uppercase; letter-spacing: 0.04em; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .team-card { border: 1px solid #ddd; border-radius: 8px; padding: 14px; background: #fff; }
+  .team-card.new { border: 2px solid #1D9E75; background: #f0faf6; }
+  .team-card h3 { margin: 0 0 4px; font-size: 14px; }
+  .team-card .role-tag { font-size: 11px; color: #1D9E75; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+  .team-card ul { font-size: 12px; color: #555; padding-left: 16px; margin: 0; }
+  .status-pill { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 2px 8px; border-radius: 10px; }
+  .status-owned { background: #e6f5ee; color: #1D9E75; }
+  .status-partial { background: #fff3e0; color: #b8650a; }
+  .status-gap { background: #fdeceb; color: #c0392b; }
+  .stage-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: start; margin: 18px 0; }
+  .stage-arrow { display: flex; align-items: center; justify-content: center; font-size: 20px; color: #bbb; padding-top: 60px; }
+  .stage-card { border: 1px solid #ddd; border-radius: 8px; padding: 14px; background: #fff; }
+  .stage-card.current { border: 2px solid #D85A30; background: #fdf6f3; }
+  .stage-card.target { border: 2px solid #1D9E75; background: #f0faf6; }
+  .stage-header { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #888; margin-bottom: 2px; }
+  .stage-rev { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 10px; }
+  .stage-role { font-size: 12.5px; margin-bottom: 8px; }
+  .stage-role strong { display: block; font-size: 12.5px; }
+  .stage-role span { color: #666; font-size: 11.5px; }
+  .flex-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 1px 7px; border-radius: 8px; background: #e8f0fb; color: #2563a8; margin-left: 6px; }
+  .math-note { font-size: 11.5px; color: #666; background: #fff; border: 1px dashed #ddd; border-radius: 6px; padding: 8px 10px; margin-top: 10px; line-height: 1.5; font-family: ui-monospace, Menlo, Consolas, monospace; }
+  @media print { body { margin: 10px auto; } }
+</style>
+</head>
+<body>
+
+<h1>Operations blueprint — building a $25M staffing firm</h1>
+<p class="subtitle">Prepared for CEO meeting · June 25, 2026</p>
+
+<h2 style="margin-top:16px;">Operations mission</h2>
+<p>Create the systems, processes, reporting, and infrastructure that allow Sales and Recruiting to maximize spread while protecting margins and reducing operational risk. Operations captures revenue, protects revenue, reduces cost, scales systems, improves employee/contractor experience, reduces legal exposure, and increases efficiency. In the MIN framework: Sales generates opportunities, Recruiting delivers talent, Operations converts starts into profitable, scalable revenue.</p>
+
+<div class="question-box">
+How do we redesign Operations so leadership spends time building the company instead of processing transactions?
+</div>
+
+<h2>Six pillars of operations</h2>
+<div class="grid">
+  <div class="card"><h3>1. Finance &amp; revenue ops</h3><p>Payroll (internal + contractor), invoicing, AR, collections, workers comp, risk management, profitability analysis, tax reporting, spread &amp; P&amp;L reporting, cash flow forecasting. Skills: payroll, accounting, pay/bill expertise, financial &amp; risk analysis.</p></div>
+  <div class="card"><h3>2. Contractor experience &amp; back office</h3><p>Onboarding, I-9/E-Verify, background/drug screens, contractor maintenance/QA, benefits admin, timekeeping support, retention, exit process, client onboarding requirements. Skills: HR, compliance, benefits, process management.</p></div>
+  <div class="card"><h3>3. Internal HR &amp; people ops</h3><p>Internal onboarding, employment agreements, comp plans, reviews, PTO, handbook, engagement, culture. Skills: HR, employment law, leadership coaching.</p></div>
+  <div class="card"><h3>4. Enablement &amp; training</h3><p>Training curriculum, recruiting/sales playbooks, SOPs, knowledge base, intranet. Skills: adult learning, staffing ops, documentation, coaching.</p></div>
+  <div class="card"><h3>5. Marketing &amp; brand ops</h3><p>Website, SEO, social, case studies, sales collateral, salary guides, market intel, employer brand. Skills: copywriting, design, analytics, campaign strategy. Content production is currently handled by an existing VA; strategy and campaign ownership aren't yet assigned.</p></div>
+  <div class="card"><h3>6. Systems, compliance &amp; process improvement</h3><p>Tech stack (ATS/CRM/payroll/timekeeping), safety/OSHA/EEO, insurance renewals, audits, workflow mapping, automation, vendor management, KPI dashboards. Skills: systems thinking, project management, vendor negotiation.</p></div>
+</div>
+
+<h2>Proposed structure — a maturity curve, not 6 managers on day one</h2>
+<p style="font-size:13px; color:#555;">$25M is ~2.5x current revenue (~$10M projected by end of 2026) — a bigger runway than first framed. A 6-manager department is typical of $50M+ firms with much higher transaction volume per pillar — not the right ask for this growth step, and not the right ask for next year either. Pillars consolidate under fewer people until volume forces a split.</p>
+<div class="stage-grid">
+  <div class="stage-card current">
+    <div class="stage-header">Today / end of 2026</div>
+    <div class="stage-rev">~$10M · 3 people + 1 VA</div>
+    <div class="stage-role"><strong>Operations director</strong><span>strategy, systems &amp; process automation, reporting/KPIs, vendor mgmt (bookkeeping, IT/MSP, benefits broker), client/account risk review with Sales, internal HR (informal), marketing strategy (informal), oversight</span></div>
+    <div class="stage-role"><strong>Enablement manager <span class="flex-tag">Flex — bridges to front office</span></strong><span>recruiter/sales playbooks, training &amp; coaching, payroll oversight (not entry), knowledge base, QBR data support, event/travel admin</span></div>
+    <div class="stage-role"><strong>Contractor exp/back-office coordinator <span class="flex-tag">Flex — bridges to front office</span></strong><span>onboarding, maintenance/QA, timecards/PSL, 1099/commission entry, back-office compliance &amp; ticket queue, invoicing &amp; client onboarding systems (badging/safety setup)</span></div>
+    <div class="stage-role"><strong>Existing VA (contract)</strong><span>marketing content production only — not strategy, not counted in the 3 core roles</span></div>
+  </div>
+  <div class="stage-arrow">&#8594;</div>
+  <div class="stage-card target">
+    <div class="stage-header">Next phase</div>
+    <div class="stage-rev">~$25M · 5 roles + VA</div>
+    <div class="stage-role"><strong>Operations director</strong><span>strategy, vendor mgmt, final risk sign-off, marketing strategy oversight, oversight</span></div>
+    <div class="stage-role"><strong>Finance &amp; revenue ops lead</strong><span>billing, AR, payroll, workers comp/risk, profitability, invoicing &amp; client onboarding systems setup<br>vendor: bookkeeping firm</span></div>
+    <div class="stage-role"><strong>Back-office/compliance lead</strong><span>grows from Coordinator — contractor experience, systems/compliance, ticket queue</span></div>
+    <div class="stage-role"><strong>HR &amp; enablement lead <span class="flex-tag">Flex — bridges to front office</span></strong><span>internal HR, enablement/training; grows from the Enablement manager role<br>vendor: benefits broker</span></div>
+    <div class="stage-role"><strong>Operations admin/coordinator (new) <span class="flex-tag">Flex — bridges to front office</span></strong><span>event/travel admin &amp; scheduling, QBR support (data pull &amp; coordination), general admin overflow across the team</span></div>
+    <div class="stage-role"><strong>Existing VA (contract)</strong><span>continues marketing content production</span></div>
+  </div>
+  <div class="stage-arrow">&#8594;</div>
+  <div class="stage-card">
+    <div class="stage-header">Mature state</div>
+    <div class="stage-rev">well past $25M</div>
+    <div class="stage-role"><strong>Pillars split further as volume justifies it:</strong><span>Internal HR splits from Enablement; Systems/Compliance splits from Finance/Back-office; marketing strategy becomes a dedicated in-house role (VA or successor continues content).</span></div>
+  </div>
+</div>
+<p style="font-size:12px; color:#888;">Order of splits should follow actual volume and risk, not a fixed org chart — revisit this after the 3-person team has been in place for 2-3 quarters. Because the gap to $25M is larger than first assumed, there's no urgency to plan past "next phase" yet.</p>
+
+<h2>Growth context</h2>
+<div class="metric-grid">
+  <div class="metric"><div class="label">Avg. new hires/mo, prior 6 mo</div><div class="value">9.5</div></div>
+  <div class="metric"><div class="label">Avg. new hires/mo, last 6 mo</div><div class="value">16.8</div></div>
+  <div class="metric"><div class="label">Growth in hiring pace</div><div class="value">+77%</div></div>
+</div>
+<p style="font-size:12.5px; color:#666;">External hires only (excludes internal hires). ~160 starts over the trailing 12 months, each generating a real onboarding workload.</p>
+
+<h2>Asana evidence: completed tasks by category, last 12 months</h2>
+<div class="metric-grid">
+  <div class="metric"><div class="label">Tagged tasks, 12 mo</div><div class="value">907</div></div>
+  <div class="metric"><div class="label">Transaction processing share</div><div class="value">65%</div></div>
+  <div class="metric"><div class="label">Process improvement share</div><div class="value">2%</div></div>
+</div>
+<div class="catbar-row"><div class="catbar-label">Finance/Payroll/AP/AR</div><div class="catbar-track"><div class="catbar-fill" style="width:100%; background:#E24B4A;"></div></div><div class="catbar-val">226</div></div>
+<div class="catbar-row"><div class="catbar-label">OB (onboarding)</div><div class="catbar-track"><div class="catbar-fill" style="width:71%; background:#FAC775;"></div></div><div class="catbar-val">160</div></div>
+<div class="catbar-row"><div class="catbar-label">Back Office/Compliance</div><div class="catbar-track"><div class="catbar-fill" style="width:59%; background:#5DCAA5;"></div></div><div class="catbar-val">134</div></div>
+<div class="catbar-row"><div class="catbar-label">Client Support/Enablement</div><div class="catbar-track"><div class="catbar-fill" style="width:35%; background:#F0997B;"></div></div><div class="catbar-val">79</div></div>
+<div class="catbar-row"><div class="catbar-label">Ticket</div><div class="catbar-track"><div class="catbar-fill" style="width:30%; background:#EF9F27;"></div></div><div class="catbar-val">68</div></div>
+<div class="catbar-row"><div class="catbar-label">Tech/Systems</div><div class="catbar-track"><div class="catbar-fill" style="width:27%; background:#378ADD;"></div></div><div class="catbar-val">62</div></div>
+<div class="catbar-row"><div class="catbar-label">Training</div><div class="catbar-track"><div class="catbar-fill" style="width:25%; background:#97C459;"></div></div><div class="catbar-val">56</div></div>
+<div class="catbar-row"><div class="catbar-label">Reporting</div><div class="catbar-track"><div class="catbar-fill" style="width:20%; background:#AFA9EC;"></div></div><div class="catbar-val">46</div></div>
+<div class="catbar-row"><div class="catbar-label">Strategy</div><div class="catbar-track"><div class="catbar-fill" style="width:20%; background:#ED93B1;"></div></div><div class="catbar-val">45</div></div>
+<div class="catbar-row"><div class="catbar-label">Implementation</div><div class="catbar-track"><div class="catbar-fill" style="width:8%; background:#85B7EB;"></div></div><div class="catbar-val">18</div></div>
+<div class="catbar-row"><div class="catbar-label">Other</div><div class="catbar-track"><div class="catbar-fill" style="width:6%; background:#B4B2A9;"></div></div><div class="catbar-val">13</div></div>
+<p style="font-size:12px; color:#888; margin-top:8px;">Source: Operations Asana project, Done section, multi-category tags (a task can carry more than one tag, so totals exceed 907 distinct tasks). Onboarding reflects ~160 actual starts over the trailing 12 months. Marketing isn't tracked in this project.</p>
+
+<h2>Recoded into strategic buckets: actual vs. target</h2>
+<div class="legend">
+  <span><span class="swatch bar-current"></span>Actual (task volume)</span>
+  <span><span class="swatch bar-target"></span>Target</span>
+</div>
+<div class="bar-row"><div class="bar-label">Transaction processing</div><div class="bar-track"><div class="bar-fill bar-current" style="width:65%"></div></div><div class="bar-val">65%</div></div>
+<div class="bar-row"><div class="bar-label"></div><div class="bar-track"><div class="bar-fill bar-target" style="width:25%"></div></div><div class="bar-val">25%</div></div>
+<div class="bar-row"><div class="bar-label">Reporting &amp; analysis</div><div class="bar-track"><div class="bar-fill bar-current" style="width:5%"></div></div><div class="bar-val">5%</div></div>
+<div class="bar-row"><div class="bar-label"></div><div class="bar-track"><div class="bar-fill bar-target" style="width:15%"></div></div><div class="bar-val">15%</div></div>
+<div class="bar-row"><div class="bar-label">Process improvement</div><div class="bar-track"><div class="bar-fill bar-current" style="width:2%"></div></div><div class="bar-val">2%</div></div>
+<div class="bar-row"><div class="bar-label"></div><div class="bar-track"><div class="bar-fill bar-target" style="width:25%"></div></div><div class="bar-val">25%</div></div>
+<div class="bar-row"><div class="bar-label">Enablement &amp; training</div><div class="bar-track"><div class="bar-fill bar-current" style="width:15%"></div></div><div class="bar-val">15%</div></div>
+<div class="bar-row"><div class="bar-label"></div><div class="bar-track"><div class="bar-fill bar-target" style="width:15%"></div></div><div class="bar-val">15%</div></div>
+<div class="bar-row"><div class="bar-label">Strategic projects</div><div class="bar-track"><div class="bar-fill bar-current" style="width:5%"></div></div><div class="bar-val">5%</div></div>
+<div class="bar-row"><div class="bar-label"></div><div class="bar-track"><div class="bar-fill bar-target" style="width:15%"></div></div><div class="bar-val">15%</div></div>
+<p style="font-size:12px; color:#888;">Tech/Systems (7%) and Other (1%) aren't mapped to a target bucket above; Marketing isn't tracked here. This is task-count weighted, not a time study — directionally correct, not exact. The priority is more time on optimizing processes and systems, automation, and building new capability, not just steady-state process improvement.</p>
+
+<div class="callout">
+<strong>The capacity math</strong>
+Two people can't run 65% of their time on transactional volume that's still climbing, and find the bandwidth to build the automation that would bring that 65% down to a healthier 25%. Right now there's no one whose job is process improvement — it's 2% of completed work against a 25% target, because anyone who could do it is buried in entry work.
+<div class="math-note">Finance/Payroll/AP/AR: 226 + OB: 160 + Back Office/Compliance: 134 + Ticket: 68 = 588<br>588 ÷ 907 total tagged tasks = ~65%</div>
+</div>
+<div class="callout">
+<strong>The risk angle</strong>
+With only two people, time-sensitive compliance work — I-9/E-Verify deadlines, workers comp/OSHA reporting, PSL approvals — has no backup. One person out sick or on PTO during a deadline window is a real exposure, not a hypothetical.
+</div>
+
+<h2>Proposed team of three</h2>
+<div class="team-grid">
+  <div class="team-card">
+    <div class="role-tag" style="color:#993c1d;">Existing — refocused</div>
+    <h3>Operations director</h3>
+    <ul>
+      <li>Strategy &amp; operating model</li>
+      <li>Systems &amp; process automation</li>
+      <li>Reporting &amp; KPI dashboards</li>
+      <li>Vendor management (bookkeeping, IT/MSP, benefits broker)</li>
+      <li>Client/account setup — contract viability &amp; risk review with Sales</li>
+      <li>Internal HR &amp; people ops (informal, until this splits off)</li>
+      <li>Marketing strategy (informal); content production handled by existing VA</li>
+      <li>Oversight of Enablement Manager &amp; new hire</li>
+    </ul>
+  </div>
+  <div class="team-card">
+    <div class="role-tag" style="color:#993c1d;">Existing — refocused</div>
+    <h3>Enablement manager <span class="flex-tag">Flex — bridges to front office</span></h3>
+    <ul>
+      <li>Recruiter/sales playbooks &amp; SOPs</li>
+      <li>Training curriculum &amp; coaching</li>
+      <li>Payroll oversight/review (not entry)</li>
+      <li>Knowledge base/intranet</li>
+      <li>QBR support — data &amp; reporting side</li>
+      <li>Event/travel admin &amp; scheduling</li>
+    </ul>
+  </div>
+  <div class="team-card new">
+    <div class="role-tag">New hire</div>
+    <h3>Contractor experience/back-office coordinator <span class="flex-tag">Flex — bridges to front office</span></h3>
+    <ul>
+      <li>Contractor onboarding (~160+ starts/yr)</li>
+      <li>Contractor maintenance/QA</li>
+      <li>Timecard/PSL processing</li>
+      <li>1099/commission entry</li>
+      <li>Back-office compliance &amp; ticket queue</li>
+      <li>Invoicing &amp; client onboarding systems (badging, compliance, safety setup)</li>
+    </ul>
+  </div>
+</div>
+<p style="font-size:13px; color:#555;">This role absorbs the highest-volume, most teachable bucket of work — the same bucket driving the 65% transactional share above — freeing the Enablement manager to run Enablement as the title implies, and freeing the Operations director to spend time on the 25% process-improvement and 15% strategic-projects targets that currently have no owner.</p>
+
+<h3 style="font-size:14px; margin-top:24px;">Where each function actually lands with 3 people</h3>
+<table>
+<thead><tr><th>Function</th><th>Owner with 3 people</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Finance &amp; revenue ops — billing, AP/AR, payroll entry, workers comp, risk, profitability</td><td>Coordinator (execution) + Ops director (oversight)</td><td><span class="status-pill status-owned">Owned</span></td></tr>
+<tr><td>Contractor experience &amp; back office — onboarding, maintenance/QA, timecards/PSL, ticket queue</td><td>Coordinator</td><td><span class="status-pill status-owned">Owned</span></td></tr>
+<tr><td>Internal HR &amp; people ops — benefits admin, employment policy, employee relations</td><td>Ops director (informal) + benefits broker (vendor)</td><td><span class="status-pill status-partial">Partial</span></td></tr>
+<tr><td>Enablement &amp; training — recruiter/sales playbooks, coaching, SOPs, knowledge base</td><td>Enablement manager</td><td><span class="status-pill status-owned">Owned</span></td></tr>
+<tr><td>Marketing &amp; brand ops — website, content, brand, employer brand</td><td>Existing VA (content) + Ops director (strategy, informal)</td><td><span class="status-pill status-partial">Partial</span></td></tr>
+<tr><td>Systems, compliance &amp; process improvement — automation, audits, tech stack, KPI dashboards</td><td>Ops director + IT/MSP (vendor)</td><td><span class="status-pill status-partial">Partial</span> — same person also owns strategy, reporting, vendor mgmt</td></tr>
+<tr><td>Client/account setup — contract viability &amp; risk review with Sales; invoicing &amp; onboarding systems for client-specific badging, compliance, safety requirements</td><td>Ops director (risk/systems) + Coordinator (execution)</td><td><span class="status-pill status-partial">Partial</span></td></tr>
+<tr><td>QBR support — data &amp; reporting side</td><td>Enablement manager</td><td><span class="status-pill status-partial">Partial</span></td></tr>
+<tr><td>Event/travel admin &amp; scheduling</td><td>Enablement manager</td><td><span class="status-pill status-partial">Partial</span></td></tr>
+</tbody>
+</table>
+<p style="font-size:13px; color:#555;">Every function has a named owner today — none are truly dropped. But 6 of 9 are thin: stacked on top of someone's primary job without dedicated capacity. The 3-person hire fixes the highest-volume transactional and compliance risk; the next phase splits off the most overloaded of these six as volume justifies it.</p>
+
+<h2>Vendor-managed work is still operations work</h2>
+<div class="two-col">
+  <div>
+    <strong>Owned &amp; performed internally</strong>
+    <ul>
+      <li>Revenue/spread reporting, P&amp;L oversight</li>
+      <li>Payroll processing</li>
+      <li>Workers comp, risk management, profitability analysis</li>
+      <li>Client &amp; contractor onboarding</li>
+      <li>Process improvement, KPI reporting</li>
+    </ul>
+  </div>
+  <div>
+    <strong>Vendor-delivered, Ops-managed</strong>
+    <ul>
+      <li>Bookkeeping, reconciliations, tax filings</li>
+      <li>IT, security, device management, help desk</li>
+      <li>Benefits broker (open enrollment, compliance)</li>
+    </ul>
+  </div>
+</div>
+<p style="font-size:13px; color:#555;">Reporting line: every vendor relationship reports to the Operations director for management, evaluation, and intervention — escalate to the CEO only when needed. Vendor management is itself operations headcount work, not a substitute for it.</p>
+
+<h2>Framing question for Glenn</h2>
+<p style="font-size:14px;">"What should Operations <strong>own outright</strong>, and what should Operations <strong>own the management of</strong> (vendor relationships)?" — both still require Ops headcount and time. This turns the conversation from "do we need a person" to "what operating model and oversight structure does a $25M firm need," and sets up the people discussion (including the case for a third back-office hire) on top of an agreed structure rather than in place of one.</p>
+
+</body>
+</html>
